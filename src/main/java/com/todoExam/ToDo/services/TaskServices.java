@@ -1,9 +1,13 @@
 package com.todoExam.ToDo.services;
 
+import com.todoExam.ToDo.models.Project;
 import com.todoExam.ToDo.models.Task;
 import com.todoExam.ToDo.repository.TaskRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -12,6 +16,9 @@ public class TaskServices {
 
     @Autowired
     private TaskRepository taskRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public List<Task> getTask(){
         return taskRepository.findAll();
@@ -31,10 +38,10 @@ public class TaskServices {
                 .ifPresent(taskRepository::deleteById);
     }
 
-    public void updateTask(Task task){
-        Task t = taskRepository.findById(task.getId())
-                .orElseThrow(RuntimeException::new);
-        t.setBody(task.getBody());
-        t.setTitle(task.getTitle());
+    public Task taskUpdateId(@PathVariable("id") long id , @RequestBody Task task){
+        Task taskUpdate = taskRepository.findById(id).get();
+        modelMapper.map(task,taskUpdate);
+        taskRepository.save(taskUpdate);
+        return taskUpdate;
     }
 }

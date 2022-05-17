@@ -17,7 +17,7 @@ public class TaskController {
     public List<Task> getTask(){
         return taskServices.getTask();
     }
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public Task getTastById(@PathVariable Long id){
         return taskServices.getTaskById(id);
     }
@@ -27,13 +27,12 @@ public class TaskController {
         return "Project is add";
     }
 
-    @PutMapping
-    public String updateTask(@RequestBody Task task){
-        taskServices.updateTask(task);
-        return "Project is update";
+    @PutMapping("/{id}")
+    public Task updateTask(@PathVariable("id") Long id ,@RequestBody Task task){
+        return taskServices.taskUpdateId(id,task);
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable("id") Long id){
         taskServices.deleteTask(id);
     }

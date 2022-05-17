@@ -2,15 +2,22 @@ package com.todoExam.ToDo.services;
 
 import com.todoExam.ToDo.models.Project;
 import com.todoExam.ToDo.repository.ProjectRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@Service
+@Component
 public class ProjectServices {
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public List<Project> getProject(){
         return projectRepository.findAll();
@@ -30,10 +37,11 @@ public class ProjectServices {
                 .ifPresent(projectRepository::deleteById);
     }
 
-    public void updateProject(Project project){
-        Project pj = projectRepository.findById(project.getId())
-                .orElseThrow(RuntimeException::new);
-        pj.setName(project.getName());
+    public Project updateProjectId(@PathVariable("id") long id , @RequestBody Project project){
+        Project updateProject = projectRepository.findById(id).get();
+        modelMapper.map(project,updateProject);
+        projectRepository.save(updateProject);
+        return updateProject;
     }
 
 }

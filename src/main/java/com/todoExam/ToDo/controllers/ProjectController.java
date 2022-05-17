@@ -16,7 +16,7 @@ public class ProjectController {
     public List<Project> getProject(){
         return projectServices.getProject();
     }
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public Project getProjectById(@PathVariable Long id){
         return projectServices.getProjectById(id);
     }
@@ -25,12 +25,11 @@ public class ProjectController {
          projectServices.saveProject((project));
          return "Project is add";
     }
-    @PutMapping
-    public String updateProject(@RequestBody Project project){
-        projectServices.updateProject(project);
-        return "Project is update";
+    @PutMapping("/{id}")
+    public Project updateProject(@PathVariable("id") Long id ,@RequestBody Project project){
+        return projectServices.updateProjectId(id,project);
     }
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public void deleteProject(@PathVariable("id") Long id)
     {
         projectServices.deleteProject(id);
