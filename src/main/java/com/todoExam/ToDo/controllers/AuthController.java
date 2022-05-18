@@ -1,6 +1,8 @@
 package com.todoExam.ToDo.controllers;
 
+import com.todoExam.ToDo.models.Project;
 import com.todoExam.ToDo.models.User;
+import com.todoExam.ToDo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private UserService userService;
+    /*
     @PostMapping("/login")
     public ResponseEntity<HttpStatus> login(@RequestBody User user) throws Exception {
 
@@ -29,5 +34,11 @@ public class AuthController {
             throw new Exception("Invalid credentials");
         }
         return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+    }
+    */
+    @PostMapping
+    public String saveUser(@RequestBody User user){
+        userService.saveUser(user);
+        return "User is add";
     }
 }

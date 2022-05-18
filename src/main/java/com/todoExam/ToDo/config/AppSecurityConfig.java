@@ -23,12 +23,14 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/login", "/home").permitAll()
-                .anyRequest().authenticated()
+                .cors()
                 .and()
-                .httpBasic();
+                .csrf().disable();
+                //.authorizeRequests()
+                //.antMatchers("/login", "/home").permitAll()
+                //.anyRequest().authenticated()
+                //.and();
+                //.httpBasic();
     }
 
     @Override
