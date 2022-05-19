@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
+    Iterable<Task> findByIsCheckedTrue();
+    Iterable<Task> findByIsCheckedFalse();
 }

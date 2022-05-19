@@ -44,4 +44,10 @@ public class TaskServices {
         taskRepository.save(taskUpdate);
         return taskUpdate;
     }
+    public void  taskCheck(Long id,Boolean isChecked){
+        Task taskCheck = taskRepository.findById(id).orElseThrow(RuntimeException::new);
+        taskCheck.setChecked(true);
+        taskRepository.save(taskCheck);
+    }
+
 }

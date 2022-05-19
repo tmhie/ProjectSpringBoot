@@ -21,10 +21,12 @@ public class TaskController {
     public Task getTastById(@PathVariable Long id){
         return taskServices.getTaskById(id);
     }
+
+    @GetMapping("/check/{id}")
+    public void check(@PathVariable("id") Long id) {taskServices.taskCheck(id,true);}
     @PostMapping
-    public String saveTask(@RequestBody Task task){
-        taskServices.saveTask((task));
-        return "Task is add";
+    public Task saveTask(@RequestBody Task task){
+        return taskServices.saveTask((task));
     }
 
     @PutMapping("/{id}")
@@ -36,4 +38,8 @@ public class TaskController {
     public void deleteTask(@PathVariable("id") Long id){
         taskServices.deleteTask(id);
     }
+//    @PostMapping("/ischeck")
+//    public void taskCheck(@PathVariable("id") Long id){
+//        taskServices.taskCheck();
+//    }
 }

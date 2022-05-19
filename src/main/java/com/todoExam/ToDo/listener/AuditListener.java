@@ -14,17 +14,18 @@ import java.time.LocalDateTime;
 
 public class AuditListener {
 
-    @Autowired
-    private IAuthenticationFacade authenticationFacade;
-    public String currentUserNameSimple(){
-        Authentication authentication = authenticationFacade.getAuthention();
-        return authentication.getName();
-    }
+//    @Autowired
+//    private IAuthenticationFacade authenticationFacade;
+//    public String currentUserNameSimple(){
+//        Authentication authentication = authenticationFacade.getAuthention();
+//        return authentication.getName();
+//    }
 //    String name = currentUserNameSimple();
 //
 //    public String getName() {
 //        return name;
 //    }
+
     @PrePersist
     private void prePersist(Object object){
         if(object instanceof AuditTable){
