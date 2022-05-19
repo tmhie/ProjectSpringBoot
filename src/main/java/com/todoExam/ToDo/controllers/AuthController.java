@@ -14,6 +14,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -40,5 +42,25 @@ public class AuthController {
     public String saveUser(@RequestBody User user){
         userService.saveUser(user);
         return "User is add";
+    }
+
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id){
+        return userService.getById(id);
+    }
+
+    @GetMapping
+    public List<User> findAdd(){
+        return userService.findByAll();
+    }
+
+    @PutMapping("/{id}")
+    public User updateUserById(@PathVariable("id") Long id , @RequestBody User user){
+        return userService.updateUserId(id,user);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUserById(@PathVariable("id") Long id){
+        userService.deleteUser(id);
     }
 }
