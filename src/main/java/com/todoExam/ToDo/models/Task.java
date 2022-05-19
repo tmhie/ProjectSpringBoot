@@ -24,5 +24,6 @@ public class Task {
     private Project project;
 
     @Column(name = "is_checked")
-    private boolean isChecked;
+    private boolean isChecked = false;
+
 }
