@@ -1,5 +1,6 @@
 package com.todoExam.ToDo.services;
 
+import com.todoExam.ToDo.exception.EntityNotFound;
 import com.todoExam.ToDo.models.Project;
 import com.todoExam.ToDo.repository.ProjectRepository;
 import org.modelmapper.ModelMapper;
@@ -24,7 +25,7 @@ public class ProjectServices {
     }
 
     public Project getProjectById(Long id){
-        return projectRepository.findById(id).get();
+        return projectRepository.findById(id).orElseThrow(EntityNotFound::new);
     }
 
     public Project saveProject(Project project){

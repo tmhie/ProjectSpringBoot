@@ -22,4 +22,8 @@ public class Task {
     @JoinColumn(name = "project_id" , referencedColumnName = "id")
     @JsonBackReference
     private Project project;
+
+    @Column(name = "is_checked")
+    private boolean isChecked = false;
+
 }

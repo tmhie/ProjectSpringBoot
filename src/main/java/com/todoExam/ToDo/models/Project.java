@@ -18,7 +18,7 @@ public class Project {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "project",fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "project",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Task> tasks;
 }

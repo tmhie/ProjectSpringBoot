@@ -1,5 +1,6 @@
 package com.todoExam.ToDo.services;
 
+import com.todoExam.ToDo.exception.EntityNotFound;
 import com.todoExam.ToDo.models.Project;
 import com.todoExam.ToDo.models.Task;
 import com.todoExam.ToDo.repository.TaskRepository;
@@ -56,5 +57,12 @@ public class TaskServices {
         modelMapper.map(task,taskUpdate);
         taskRepository.save(taskUpdate);
         return taskUpdate;
+    }
+
+    public Task  taskCheck(Long id,Boolean isChecked){
+        Task taskCheck = taskRepository.findById(id)
+                .orElseThrow(EntityNotFound::new);
+        taskCheck.setChecked(true);
+        return taskRepository.save(taskCheck);
     }
 }
