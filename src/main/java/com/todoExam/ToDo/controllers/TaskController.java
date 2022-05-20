@@ -22,9 +22,8 @@ public class TaskController {
         return taskServices.getTaskById(id);
     }
     @PostMapping
-    public String saveTask(@RequestBody Task task){
-        taskServices.saveTask((task));
-        return "Project is add";
+    public Task saveTask(@RequestBody Task task){
+        return taskServices.saveTask((task));
     }
 
     @PutMapping("/{id}")
