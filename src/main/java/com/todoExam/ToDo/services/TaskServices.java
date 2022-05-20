@@ -4,12 +4,17 @@ import com.todoExam.ToDo.exception.EntityNotFound;
 import com.todoExam.ToDo.models.Project;
 import com.todoExam.ToDo.models.Task;
 import com.todoExam.ToDo.repository.TaskRepository;
+import org.hibernate.Criteria;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Service
@@ -21,8 +26,16 @@ public class TaskServices {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private EntityManager entityManager;
+
     public List<Task> getTask(){
-        return taskRepository.findAll();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Task> query = cb.createQuery(Task.class);
+        Root<Task> task = query.from(Task.class);
+        query.select(task)
+                .orderBy(cb.desc(task.get("id")));
+        return entityManager.createQuery(query).getResultList();
     }
 
     public Task getTaskById(Long id){
