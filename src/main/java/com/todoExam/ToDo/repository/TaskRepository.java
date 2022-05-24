@@ -7,8 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-<<<<<<< HEAD
-=======
-//asdasdasd
->>>>>>> 5edab7ecb28efbf71db5e4db1c9620d5dc29c8d8
 }

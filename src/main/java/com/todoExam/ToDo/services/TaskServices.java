@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskServices {
@@ -29,12 +32,14 @@ public class TaskServices {
     @Autowired
     private EntityManager entityManager;
 
-    public List<Task> getTask(){
+    public List<Task> getTask(Task taskInput){
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Task> query = cb.createQuery(Task.class);
         Root<Task> task = query.from(Task.class);
+        List<Predicate> predicates = new ArrayList<>();
         query.select(task)
-                .orderBy(cb.desc(task.get("id")));
+                .where(predicates.toArray(new Predicate[0]))
+                .orderBy(cb.asc(task.get("id")));
         return entityManager.createQuery(query).getResultList();
     }
 

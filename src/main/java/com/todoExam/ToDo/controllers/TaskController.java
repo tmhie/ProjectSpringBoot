@@ -22,8 +22,8 @@ public class TaskController {
     @Autowired
     private TaskServices taskServices;
     @GetMapping
-    public List<Task> getTask(){
-        return taskServices.getTask();
+    public List<Task> getTask(Task task){
+        return taskServices.getTask(task);
     }
     @GetMapping("/{id}")
     public Task getTastById(@PathVariable Long id){
@@ -61,8 +61,8 @@ public class TaskController {
     public void deleteTask(@PathVariable("id") Long id){
         taskServices.deleteTask(id);
     }
-//    @PostMapping("/ischeck")
-//    public void taskCheck(@PathVariable("id") Long id){
-//        taskServices.taskCheck();
-//    }
+    @PostMapping("/ischeck")
+    public void taskCheck(@PathVariable("id") Long id){
+        taskServices.taskCheck(id,true);
+    }
 }
