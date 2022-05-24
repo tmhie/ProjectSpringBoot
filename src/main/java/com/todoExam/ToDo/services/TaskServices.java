@@ -65,4 +65,10 @@ public class TaskServices {
         taskCheck.setChecked(true);
         return taskRepository.save(taskCheck);
     }
+    public Task taskUpdateCheck(Long id , Boolean isChecked){
+        Task taskUpdateC = taskRepository.findById(id).orElseThrow(EntityNotFound ::new);
+        taskUpdateC.setChecked(true);
+
+        return taskRepository.save(taskUpdateC);
+    }
 }

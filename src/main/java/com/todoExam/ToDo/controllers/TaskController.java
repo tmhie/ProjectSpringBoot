@@ -61,8 +61,8 @@ public class TaskController {
     public void deleteTask(@PathVariable("id") Long id){
         taskServices.deleteTask(id);
     }
-//    @PostMapping("/ischeck")
-//    public void taskCheck(@PathVariable("id") Long id){
-//        taskServices.taskCheck();
-//    }
+    @PutMapping("/ischeck/{id}")
+    public Task taskUpdateCheck(@PathVariable("id") Long id) {
+        return taskServices.taskUpdateCheck(id,true);
+    }
 }
